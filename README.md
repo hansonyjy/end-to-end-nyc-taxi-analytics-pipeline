@@ -1,4 +1,3 @@
-# team19
 # NYC Taxi Demand Pipeline
 
 ## Overview
@@ -332,8 +331,8 @@ If the Spark stage already succeeded and you only want to retry the Snowflake st
 
 ---
 
-# Authors
-Hanson Yang, Yujin Feng, Jennifer Chen, Zihan Ye, Ruoxuan Cao, Rita He
+# Author
+Hanson Yang
 
 MSBA Class of 2026 team 19
 
