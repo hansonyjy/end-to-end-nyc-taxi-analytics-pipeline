@@ -1,6 +1,7 @@
-<p align="center"><img src="docs/img/demo.gif" alt="The Taxi Weather dashboard: any rain at JFK is +1.0% against comparable dry days, with a 95% interval from -1.0% to +3.2%, so no clear effect. Switching to Central Park gives -1.2%, heavy rain -2.5%, snow -4.8% (clearly lower, 23 days), then the naive totals view shows dry days holding most trips only because most days are dry" width="100%"></p>
+<p align="center"><a href="https://hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline/"><img src="docs/img/demo.gif" alt="The Taxi Weather dashboard: any rain at JFK is +1.0% against comparable dry days, with a 95% interval from -1.0% to +3.2%, so no clear effect. Switching to Central Park gives -1.2%, heavy rain -2.5%, snow -4.8% (clearly lower, 23 days), then the naive totals view shows dry days holding most trips only because most days are dry" width="100%"></a></p>
 
 <p align="center">
+  <a href="https://hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline/"><img src="https://img.shields.io/badge/live%20dashboard-hansonyjy.github.io-0f8f62" alt="Live dashboard"></a>
   <img src="https://img.shields.io/badge/PySpark-Dataproc-E25A1C" alt="PySpark on Dataproc">
   <img src="https://img.shields.io/badge/warehouse-Snowflake-29B5E8" alt="Snowflake">
   <img src="https://img.shields.io/badge/orchestration-Luigi-14261f" alt="Luigi">
@@ -14,7 +15,7 @@ This is a cloud data pipeline (PySpark on Dataproc, a Snowflake star schema, Lui
 
 It started as our MSBA 405 team project at UCLA Anderson (team 19). The team built the pipeline together, and teammate Zihan Ye published the [original Tableau dashboard](https://public.tableau.com/app/profile/zihan.ye/viz/405FinalProjectNYCTaxiWeatherDashboard/Dashboard1). I published the code and then came back to it on my own: I re-ran the analysis per day on the public data, traced the problems below to the Spark job, fixed the pipeline so the warehouse matches, and designed and built the new dashboard. I build with Claude Code as a pair programmer, and the history shows how: small commits, each with its reason in the message.
 
-**Dashboard:** open [`docs/index.html`](docs/index.html) through any static server (see [Run It Yourself](#run-it-yourself)). It is a static site, ready for GitHub Pages from `/docs`.
+**Live dashboard:** [hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline](https://hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline/). It is a static site served by GitHub Pages from `/docs`, so it loads instantly and runs entirely in your browser.
 
 ## What You Can Do With It
 
