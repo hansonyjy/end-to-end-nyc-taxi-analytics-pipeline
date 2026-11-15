@@ -52,7 +52,8 @@ CREATE OR REPLACE TABLE NYCTAXI_DB.STAR_SCHEMA.FACT_TAXI_DEMAND (
     AVG_TIP FLOAT,
     AVG_TIP_PCT FLOAT,
     AVG_TOTAL FLOAT,
-    AVG_DISTANCE FLOAT
+    AVG_DISTANCE FLOAT,
+    CARD_TIP_PCT FLOAT
 );
 
 -------------------------------------------------------------------------------------------
@@ -72,7 +73,28 @@ COPY INTO NYCTAXI_DB.STAR_SCHEMA.FACT_TAXI_DEMAND
 FROM @gcp_taxi_stage/fact_taxi_demand/;
 
 -------------------------------------------------------------------------------------------
--- 4. Validation queries
+-- 4. The question, asked per day
+-- A weather bucket with more days will always hold more total trips, so compare the average
+-- trips per day, never the total. (Seasonal mix still differs between buckets: the like-for-
+-- like comparison within month and weekday lives in analysis/weather_effect.py.)
+-------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW NYCTAXI_DB.STAR_SCHEMA.V_TRIPS_PER_DAY_BY_RAIN AS
+SELECT
+    l.LOCATION_NAME,
+    w.RAIN_LEVEL,
+    COUNT(*) AS DAYS,
+    SUM(f.TRIP_COUNT) AS TOTAL_TRIPS,
+    AVG(f.TRIP_COUNT) AS TRIPS_PER_DAY
+FROM NYCTAXI_DB.STAR_SCHEMA.FACT_TAXI_DEMAND f
+JOIN NYCTAXI_DB.STAR_SCHEMA.DIM_LOCATION l
+    ON f.LOCATION_ID = l.LOCATION_ID
+JOIN NYCTAXI_DB.STAR_SCHEMA.DIM_WEATHER w
+    ON f.WEATHER_ID = w.WEATHER_ID
+GROUP BY 1, 2;
+
+-------------------------------------------------------------------------------------------
+-- 5. Validation queries
 -------------------------------------------------------------------------------------------
 
 SELECT 'dim_location' AS table_name, COUNT(*) AS record_count
@@ -86,6 +108,12 @@ FROM NYCTAXI_DB.STAR_SCHEMA.DIM_WEATHER
 UNION ALL
 SELECT 'fact_taxi_demand', COUNT(*)
 FROM NYCTAXI_DB.STAR_SCHEMA.FACT_TAXI_DEMAND;
+
+-- The fact table should hold exactly one row per date and location
+SELECT DATE_ID, LOCATION_ID, COUNT(*) AS rows_per_key
+FROM NYCTAXI_DB.STAR_SCHEMA.FACT_TAXI_DEMAND
+GROUP BY 1, 2
+HAVING COUNT(*) > 1;
 
 SELECT
     YEAR,

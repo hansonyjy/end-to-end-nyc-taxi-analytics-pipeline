@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="t d">
+<title id="t">Architecture: a cloud pipeline and a local re-analysis that produce the same numbers</title><desc id="d">Cloud path, orchestrated by Luigi: TLC parquet and NOAA weather in Google Cloud Storage go to a PySpark job on Dataproc, which cleans trips, removes exact duplicates, keeps one weather station, drops data-gap days and aggregates per day and zone; it writes a fact table and three dimensions back to GCS, which Snowflake loads into a star schema read by the Tableau dashboard. Local path: analysis/weather_effect.py reads the same public files with DuckDB, applies the same filters and writes daily.csv and results.json, which feed the static dashboard and the README figures.</desc>
+<rect width="1200" height="600" rx="18" fill="#f6f5f0"/>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f4f48"/></marker></defs>
+<text x="48" y="58" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.8" fill="#14261f">One set of rules, two ways to run it</text>
+<rect x="32" y="88" width="1136" height="250" rx="14" fill="none" stroke="#dcdcd3" stroke-dasharray="6 6"/>
+<text x="52" y="80" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">Cloud pipeline · ./pipeline.py · Luigi tasks with marker files</text>
+<rect x="52" y="112" width="214" height="112" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="68" y="142" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Raw data in GCS</text>
+<text x="68" y="166" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">TLC yellow parquet</text>
+<text x="68" y="186" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">36 months, 2023-2025</text>
+<text x="68" y="206" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">NOAA daily CSV</text>
+<rect x="306" y="112" width="296" height="196" rx="12" fill="#14261f" stroke="#14261f"/>
+<text x="322" y="142" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#f6f5f0">PySpark on Dataproc</text>
+<text x="322" y="166" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">Spark/spark-job.py</text>
+<text x="322" y="186" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">same trip filters</text>
+<text x="322" y="206" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">exact-duplicate removal</text>
+<text x="322" y="226" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">one station: Central Park</text>
+<text x="322" y="246" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">drop TLC data-gap days</text>
+<text x="322" y="266" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c4d0ca">aggregate per day x zone</text>
+<rect x="642" y="112" width="214" height="112" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="658" y="142" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Star schema in GCS</text>
+<text x="658" y="166" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">fact_taxi_demand</text>
+<text x="658" y="186" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">dim_time, dim_weather</text>
+<text x="658" y="206" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">dim_location (CSV)</text>
+<rect x="896" y="112" width="252" height="112" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="912" y="142" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Snowflake</text>
+<text x="912" y="166" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">COPY INTO from a stage</text>
+<text x="912" y="186" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">NYCTAXI_DB.STAR_SCHEMA</text>
+<text x="912" y="206" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">V_TRIPS_PER_DAY_BY_RAIN</text>
+<rect x="896" y="246" width="252" height="72" rx="12" fill="#fdf1d2" stroke="#ecc970"/>
+<text x="912" y="276" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Tableau Public</text>
+<text x="912" y="300" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">team dashboard (Zihan Ye)</text>
+<line x1="266" y1="168" x2="302" y2="168" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="602" y1="168" x2="638" y2="168" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="856" y1="168" x2="892" y2="168" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="1022" y1="224" x2="1022" y2="242" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="32" y="380" width="1136" height="190" rx="14" fill="none" stroke="#0f8f62" stroke-opacity="0.5" stroke-dasharray="6 6"/>
+<text x="52" y="372" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#0b6e4b">Local re-analysis · no cloud accounts · reruns byte for byte</text>
+<rect x="52" y="404" width="214" height="112" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="68" y="434" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Public downloads</text>
+<text x="68" y="458" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">TLC CloudFront parquet</text>
+<text x="68" y="478" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">NOAA GHCN-Daily API</text>
+<text x="68" y="498" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">data/raw, gitignored</text>
+<rect x="306" y="404" width="296" height="140" rx="12" fill="#e3f1ea" stroke="#0f8f62"/>
+<text x="322" y="434" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0b6e4b">analysis/weather_effect.py</text>
+<text x="322" y="458" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">DuckDB, same filters</text>
+<text x="322" y="478" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">like-for-like comparison</text>
+<text x="322" y="498" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">month-cluster bootstrap</text>
+<text x="322" y="518" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">fixed-effects regression</text>
+<rect x="642" y="404" width="214" height="112" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="658" y="434" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#14261f">Committed outputs</text>
+<text x="658" y="458" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">docs/data/daily.csv</text>
+<text x="658" y="478" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">docs/data/results.json</text>
+<text x="658" y="498" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">checked by pytest</text>
+<rect x="896" y="404" width="252" height="140" rx="12" fill="#e3f1ea" stroke="#0f8f62"/>
+<text x="912" y="434" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0b6e4b">Static dashboard</text>
+<text x="912" y="458" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">docs/index.html</text>
+<text x="912" y="478" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">recomputes every effect</text>
+<text x="912" y="498" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">in the browser and checks</text>
+<text x="912" y="518" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#3f4f48">itself against results.json</text>
+<line x1="266" y1="460" x2="302" y2="460" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="602" y1="460" x2="638" y2="460" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="856" y1="460" x2="892" y2="460" stroke="#3f4f48" stroke-width="2" marker-end="url(#ar)"/>
+</svg>

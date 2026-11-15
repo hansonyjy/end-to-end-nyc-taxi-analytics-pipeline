@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi Weather · Does Rain Move NYC Taxi Demand?</title>
+  <meta name="description" content="Three years of NYC yellow taxi pickups at JFK and Central Park, compared day by day against Central Park weather. Every number is recomputed in your browser from the committed per-day table.">
+  <meta name="theme-color" content="#f6f5f0">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2314261f'/%3E%3Cpath d='M16 7c3 4.2 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 3-6.8 6-11z' fill='%23f2b632'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=2">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+  <script src="app.js?v=2" defer></script>
+</head>
+<body class="is-loading">
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Taxi Weather, back to top">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 7c3 4.2 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 3-6.8 6-11z" /></svg>
+        </span>
+        <span class="brand-name">Taxi Weather</span>
+        <span class="brand-crumb mono">/ JFK + Central Park</span>
+      </a>
+      <nav class="topnav mono" aria-label="Sections">
+        <a href="#effect">Effect</a>
+        <a href="#daily">Daily</a>
+        <a href="#naive">Naive vs Per Day</a>
+        <a href="#zones">Zones</a>
+        <a href="#method">Method</a>
+      </nav>
+      <div class="topbar-actions">
+        <span class="status-pill mono" id="status-pill" title="">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="status-text">Loading days</span>
+        </span>
+        <a class="btn btn-ghost" href="https://github.com/hansonyjy/end-to-end-nyc-taxi-analytics-pipeline" aria-label="Source on GitHub">
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span class="btn-label">Source</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell" id="top">
+
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow mono"><span class="eyebrow-num">01</span> · NYC TLC yellow taxi × NOAA weather, 2023 to 2025</p>
+      <h1 id="hero-title">Rain Barely Moves <span class="hl">NYC Taxi Demand.</span></h1>
+      <p class="dek" id="hero-dek">Three years of pickups at JFK and Central Park, each weather day compared with dry days in the same month and on the same weekday. Pick a zone, a condition and a season: every number below is recomputed in your browser from the committed per-day table.</p>
+      <ul class="chips mono" aria-label="Dataset facts">
+        <li class="chip" id="chip-trips">Trips loading</li>
+        <li class="chip" id="chip-days">Days loading</li>
+        <li class="chip">One weather station: Central Park</li>
+        <li class="chip">Like-for-like, not totals</li>
+      </ul>
+    </section>
+
+    <div class="workspace">
+
+      <aside class="controls-col" aria-label="Filters">
+        <form class="panel controls" id="controls" onsubmit="return false">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker mono">View</p>
+              <h2 class="panel-title">Filters</h2>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm" id="reset">Reset</button>
+          </div>
+
+          <fieldset class="control">
+            <legend>Pickup zone</legend>
+            <div class="seg" role="radiogroup">
+              <label><input type="radio" name="zone" value="jfk" checked><span>JFK</span></label>
+              <label><input type="radio" name="zone" value="cp"><span>Central Park</span></label>
+              <label><input type="radio" name="zone" value="both"><span>Both</span></label>
+            </div>
+          </fieldset>
+
+          <div class="control">
+            <label class="control-label" for="condition">Weather condition</label>
+            <select id="condition" class="select"></select>
+            <p class="hint" id="condition-hint"></p>
+          </div>
+
+          <fieldset class="control">
+            <legend>Metric</legend>
+            <div class="seg seg-3" role="radiogroup">
+              <label><input type="radio" name="metric" value="trips" checked><span>Trips / day</span></label>
+              <label><input type="radio" name="metric" value="avg_fare"><span>Avg fare</span></label>
+              <label><input type="radio" name="metric" value="tip_pct"><span>Tip %</span></label>
+            </div>
+          </fieldset>
+
+          <div class="control">
+            <label class="control-label" for="season">Season</label>
+            <select id="season" class="select">
+              <option value="all">All year</option>
+              <option value="winter">Winter (Dec to Feb)</option>
+              <option value="spring">Spring (Mar to May)</option>
+              <option value="summer">Summer (Jun to Aug)</option>
+              <option value="fall">Fall (Sep to Nov)</option>
+            </select>
+          </div>
+
+          <fieldset class="control">
+            <legend>Years</legend>
+            <div class="checks" id="years">
+              <label><input type="checkbox" value="2023" checked><span>2023</span></label>
+              <label><input type="checkbox" value="2024" checked><span>2024</span></label>
+              <label><input type="checkbox" value="2025" checked><span>2025</span></label>
+            </div>
+          </fieldset>
+
+          <div class="formula">
+            <p class="formula-label mono">How each number is built</p>
+            <p class="formula-eq mono">effect = mean over weather days of (day ÷ dry days, same month and weekday) − 1</p>
+            <ul class="formula-rules">
+              <li>Federal holidays and four TLC data-gap days are left out.</li>
+              <li>The 95% interval resamples whole months, 2,000 times.</li>
+            </ul>
+          </div>
+        </form>
+      </aside>
+
+      <main class="main-col">
+
+        <section id="effect" class="kpis" aria-label="Headline numbers" aria-live="polite">
+          <article class="kpi kpi-hero">
+            <p class="kpi-label mono" id="k1-label">Controlled effect</p>
+            <p class="kpi-value" id="k1-value">&nbsp;</p>
+            <p class="kpi-foot mono" id="k1-foot">&nbsp;</p>
+          </article>
+          <article class="kpi">
+            <p class="kpi-label mono">Verdict</p>
+            <p class="kpi-value kpi-value-sm" id="k2-value">&nbsp;</p>
+            <p class="kpi-foot" id="k2-foot">&nbsp;</p>
+          </article>
+          <article class="kpi">
+            <p class="kpi-label mono" id="k3-label">Typical dry day</p>
+            <p class="kpi-value" id="k3-value">&nbsp;</p>
+            <p class="kpi-foot" id="k3-foot">&nbsp;</p>
+          </article>
+          <article class="kpi">
+            <p class="kpi-label mono">Naive totals would say</p>
+            <p class="kpi-value" id="k4-value">&nbsp;</p>
+            <p class="kpi-foot" id="k4-foot">&nbsp;</p>
+          </article>
+        </section>
+
+        <section class="card chart-card" aria-labelledby="forest-title">
+          <div class="card-head">
+            <div>
+              <h3 class="card-title" id="forest-title">Effect by Condition</h3>
+              <p class="card-sub" id="forest-sub">&nbsp;</p>
+            </div>
+            <span class="legend mono"><span class="sw-dot"></span>estimate <span class="sw-bar"></span>95% interval</span>
+          </div>
+          <div class="chart-wrap chart-svg" id="forest-chart" role="img" aria-label="Effect of each weather condition with 95% intervals"></div>
+          <p class="card-foot" id="forest-foot">&nbsp;</p>
+        </section>
+
+        <section class="section" id="daily" aria-labelledby="daily-title">
+          <div class="section-head">
+            <p class="eyebrow mono"><span class="eyebrow-num">02</span> · Every day</p>
+            <h2 id="daily-title">The Daily Record</h2>
+            <p class="section-dek">Season and the calendar drive the line, not the weather. Days that match the selected condition are marked; precipitation sits on its own scale underneath.</p>
+          </div>
+          <div class="card chart-card">
+            <div class="card-head">
+              <h3 class="card-title" id="ts-title">Trips per Day</h3>
+              <span class="legend mono" id="ts-legend"></span>
+            </div>
+            <div class="chart-wrap chart-ts"><canvas id="ts-chart" role="img" aria-label="Daily metric over time with weather days marked"></canvas></div>
+            <div class="chart-wrap chart-prcp"><canvas id="prcp-chart" role="img" aria-label="Daily precipitation at Central Park in inches"></canvas></div>
+            <p class="card-foot">Precipitation in inches at NOAA station USW00094728 (NY City Central Park). The flat stretch in September 2023 is a TLC data outage, not weather, and is excluded.</p>
+          </div>
+        </section>
+
+        <section class="section" id="naive" aria-labelledby="naive-title">
+          <div class="section-head">
+            <p class="eyebrow mono"><span class="eyebrow-num">03</span> · Why the first dashboard misled</p>
+            <h2 id="naive-title">Totals Count Days, Not Demand</h2>
+            <p class="section-dek">The original Tableau view summed trips per rain bucket. A bucket with more days always holds more trips, so the chart mostly measured how often each kind of weather happens. Taking the wettest of many stations each day also pushed days into the rain buckets.</p>
+          </div>
+          <div class="card naive-card">
+            <div class="card-head">
+              <h3 class="card-title">Three Ways to Read the Same Days</h3>
+              <div class="seg seg-inline" role="radiogroup" aria-label="Rain buckets from">
+                <label><input type="radio" name="station" value="max4"><span>Max of 4 stations</span></label>
+                <label><input type="radio" name="station" value="cp" checked><span>Central Park only</span></label>
+              </div>
+            </div>
+            <div class="naive-grid">
+              <div class="naive-col">
+                <p class="naive-step mono"><b>1</b> What was charted</p>
+                <h4 class="naive-title">Total Trips by Bucket</h4>
+                <div class="chart-wrap chart-naive"><canvas id="naive-total" role="img" aria-label="Total trips by rain bucket"></canvas></div>
+              </div>
+              <div class="naive-col">
+                <p class="naive-step mono"><b>2</b> Divide by days</p>
+                <h4 class="naive-title">Trips per Day by Bucket</h4>
+                <div class="chart-wrap chart-naive"><canvas id="naive-perday" role="img" aria-label="Average trips per day by rain bucket"></canvas></div>
+              </div>
+              <div class="naive-col">
+                <p class="naive-step mono"><b>3</b> Compare like with like</p>
+                <h4 class="naive-title">Effect vs Dry Days</h4>
+                <div class="chart-wrap chart-svg chart-naive-svg" id="naive-matched" role="img" aria-label="Controlled effect of each rain bucket against dry days"></div>
+              </div>
+            </div>
+            <p class="card-foot" id="naive-foot">&nbsp;</p>
+          </div>
+        </section>
+
+        <section class="section" id="zones" aria-labelledby="zones-title">
+          <div class="section-head">
+            <p class="eyebrow mono"><span class="eyebrow-num">04</span> · Airport vs park</p>
+            <h2 id="zones-title">JFK vs Central Park</h2>
+            <p class="section-dek">An airport queue is booked by flights; a park pickup is a choice made on the curb. If weather mattered anywhere, it should show at Central Park first.</p>
+          </div>
+          <div class="zones-grid">
+            <div class="card chart-card">
+              <div class="card-head">
+                <h3 class="card-title" id="zones-chart-title">Effect by Condition, Both Zones</h3>
+                <span class="legend mono" id="zones-legend"></span>
+              </div>
+              <div class="chart-wrap chart-svg" id="zones-chart" role="img" aria-label="Effect of each condition at JFK and at Central Park with 95% intervals"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3 class="card-title">Zone Profile</h3><span class="tag mono" id="profile-tag"></span></div>
+              <table class="profile" id="profile">
+                <thead><tr><th scope="col"></th><th scope="col">JFK</th><th scope="col">Central Park</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="method" aria-labelledby="method-title">
+          <div class="section-head">
+            <p class="eyebrow mono"><span class="eyebrow-num">05</span> · Method and data</p>
+            <h2 id="method-title">How to Read This</h2>
+          </div>
+          <div class="method-grid">
+            <div class="card prose">
+              <h3 class="card-title">The Comparison</h3>
+              <p>Demand is trips per pickup day. A rainy Tuesday in March is compared only with dry Tuesdays in that same March, so season, weekday and the long-run trend (including congestion pricing from January 2025) cancel out. Snow days are compared with dry days; freezing and hot days with dry days that were not freezing or hot.</p>
+              <p>A log-linear regression with month and weekday fixed effects, run in <code>analysis/weather_effect.py</code>, gives the same picture and is in <a href="data/results.json">results.json</a>.</p>
+            </div>
+            <div class="card prose">
+              <h3 class="card-title">The Data</h3>
+              <ul class="facts" id="facts"></ul>
+            </div>
+            <div class="card prose">
+              <h3 class="card-title">Every Number, Checkable</h3>
+              <p>This page loads <a href="data/daily.csv">daily.csv</a> (one row per date and zone) and recomputes every effect and interval live. On load it checks its own default numbers against <a href="data/results.json">results.json</a>, written by the Python analysis with the same seeded bootstrap. <span id="parity-note"></span></p>
+            </div>
+          </div>
+
+          <details class="card table-card">
+            <summary><span class="card-title">All Effects as a Table</span> <span class="hint mono">current zone, metric and filters</span></summary>
+            <div class="table-scroll">
+              <table class="effects" id="effects-table">
+                <thead><tr><th scope="col">Condition</th><th scope="col">Effect</th><th scope="col">95% interval</th><th scope="col">Days</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+
+        <footer class="footer">
+          <p><b>MSBA 405 team project, UCLA Anderson (team 19).</b> The original Tableau dashboard was built and published by teammate Zihan Ye: <a href="https://public.tableau.com/app/profile/zihan.ye/viz/405FinalProjectNYCTaxiWeatherDashboard/Dashboard1">view it on Tableau Public</a>. This page is a later, per-day re-analysis by Hanson Yang.</p>
+          <p class="muted">Data: NYC Taxi and Limousine Commission trip records; NOAA GHCN-Daily. Not affiliated with either agency.</p>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="tooltip" id="tooltip" role="status" hidden></div>
+  <noscript><p class="noscript">This dashboard computes everything in the browser and needs JavaScript.</p></noscript>
+</body>
+</html>

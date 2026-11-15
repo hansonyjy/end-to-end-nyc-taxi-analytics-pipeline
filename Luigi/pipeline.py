@@ -31,14 +31,24 @@ def normalize_gcs_bucket_for_snowflake(bucket: str) -> str:
     return bucket
 
 
-def require_command(command: str) -> str:
-    preferred_paths = {
-        "gcloud": PROJECT_ROOT / "tools" / "google-cloud-sdk" / "bin" / "gcloud",
-        "snowsql": Path("/Applications/SnowSQL.app/Contents/MacOS/snowsql"),
-    }
+# Optional overrides for tools that are not on PATH, e.g. GCLOUD_BIN=~/google-cloud-sdk/bin/gcloud
+# or SNOWSQL_BIN=/Applications/SnowSQL.app/Contents/MacOS/snowsql on macOS.
+COMMAND_OVERRIDE_VARS = {"gcloud": "GCLOUD_BIN", "snowsql": "SNOWSQL_BIN"}
 
-    preferred = preferred_paths.get(command)
-    if preferred and preferred.exists():
+
+def command_override(command: str) -> Path | None:
+    var = COMMAND_OVERRIDE_VARS.get(command)
+    value = os.getenv(var) if var else None
+    return Path(value).expanduser() if value else None
+
+
+def require_command(command: str) -> str:
+    preferred = command_override(command)
+    if preferred is not None:
+        if not preferred.exists():
+            raise FileNotFoundError(
+                f"{COMMAND_OVERRIDE_VARS[command]} points to {preferred}, which does not exist."
+            )
         return str(preferred)
 
     path = shutil.which(command)
@@ -79,6 +89,7 @@ class RunSparkJob(luigi.Task):
         dim_time_output_name = os.getenv("DIM_TIME_OUTPUT_NAME", "dim_time")
         dim_weather_output_name = os.getenv("DIM_WEATHER_OUTPUT_NAME", "dim_weather")
         dim_location_output_name = os.getenv("DIM_LOCATION_OUTPUT_NAME", "dim_location")
+        weather_station = os.getenv("WEATHER_STATION", "USW00094728")
 
         spark_script = resolve_path("SPARK_SCRIPT", DEFAULT_SPARK_SCRIPT)
         if not spark_script.exists():
@@ -116,6 +127,8 @@ class RunSparkJob(luigi.Task):
             dim_weather_output_name,
             "--dim-location-output-name",
             dim_location_output_name,
+            "--weather-station",
+            weather_station,
         ]
 
         try:

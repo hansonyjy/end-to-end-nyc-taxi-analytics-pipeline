@@ -1,0 +1,1268 @@
+{
+ "meta": {
+  "period": [
+   "2023-01-01",
+   "2025-12-31"
+  ],
+  "zones": {
+   "132": "JFK",
+   "43": "Central Park"
+  },
+  "weather_station": {
+   "id": "USW00094728",
+   "name": "NY City Central Park"
+  },
+  "comparison": "each weather day vs dry days in the same year, month and weekday; federal holidays excluded",
+  "interval": "95% cluster bootstrap over months, 2000 draws, mulberry32 seed 405",
+  "regression": "OLS on log(metric) with year-month and weekday fixed effects, holiday dummy, HAC(7) SEs",
+  "tip_pct": "card trips only (cash tips are not recorded): sum of tips / sum of fares",
+  "conditions": {
+   "any_rain": "Any rain",
+   "light_rain": "Light rain",
+   "moderate_rain": "Moderate rain",
+   "heavy_rain": "Heavy rain",
+   "snow": "Snow",
+   "freezing": "Freezing",
+   "hot": "Hot"
+  },
+  "metrics": {
+   "trips": "Trips per day",
+   "avg_fare": "Average fare",
+   "tip_pct": "Tip % (card)"
+  }
+ },
+ "day_counts": {
+  "rain_level": {
+   "no rain": 725,
+   "light rain": 141,
+   "moderate rain": 95,
+   "heavy rain": 131
+  },
+  "rain_level_max_of_4_stations": {
+   "no rain": 661,
+   "light rain": 162,
+   "moderate rain": 99,
+   "heavy rain": 170
+  },
+  "snow_days": 26,
+  "freezing_days": 62,
+  "hot_days": 66,
+  "holidays": 33,
+  "days": 1092
+ },
+ "totals": {
+  "JFK": {
+   "trips": 5623300,
+   "trips_per_day": 5149.542124542125
+  },
+  "Central Park": {
+   "trips": 1748447,
+   "trips_per_day": 1601.1419413919414
+  }
+ },
+ "effects": {
+  "jfk": {
+   "any_rain": {
+    "trips": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 1.0420579319834975,
+     "ci_low": -1.0386920292983235,
+     "ci_high": 3.1849783793244755
+    },
+    "avg_fare": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.11530670170340955,
+     "ci_low": -0.12808769285447502,
+     "ci_high": 0.3613616703833401
+    },
+    "tip_pct": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.14183930824719787,
+     "ci_low": -0.15075014588226127,
+     "ci_high": 0.4142146262774601
+    }
+   },
+   "light_rain": {
+    "trips": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 1.2532517539994745,
+     "ci_low": -1.106132150426646,
+     "ci_high": 3.8454816072526223
+    },
+    "avg_fare": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.10357050699792379,
+     "ci_low": -0.17384303447162835,
+     "ci_high": 0.3772090513265066
+    },
+    "tip_pct": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.09174244980408072,
+     "ci_low": -0.25393688411985627,
+     "ci_high": 0.45846386849429777
+    }
+   },
+   "moderate_rain": {
+    "trips": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.7703019228175705,
+     "ci_low": -1.8252018498250464,
+     "ci_high": 3.5227261579482714
+    },
+    "avg_fare": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.28909546490199567,
+     "ci_low": -0.09851094900191909,
+     "ci_high": 0.636164795974469
+    },
+    "tip_pct": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.47976129226247005,
+     "ci_low": -0.05395762401573311,
+     "ci_high": 0.9090597192828923
+    }
+   },
+   "heavy_rain": {
+    "trips": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": 1.0098203992580954,
+     "ci_low": -2.505825048845663,
+     "ci_high": 4.712481023160059
+    },
+    "avg_fare": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -0.0033864726319126973,
+     "ci_low": -0.5232128049033835,
+     "ci_high": 0.5344869534579734
+    },
+    "tip_pct": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -0.058140191374950495,
+     "ci_low": -0.5177221914701946,
+     "ci_high": 0.3753462082845607
+    }
+   },
+   "snow": {
+    "trips": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -8.378715202603441,
+     "ci_low": -18.817018376072227,
+     "ci_high": 3.4748919968823113
+    },
+    "avg_fare": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -0.8628805303936007,
+     "ci_low": -1.717314112702915,
+     "ci_high": -0.1913450091633048
+    },
+    "tip_pct": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -0.5389457313182281,
+     "ci_low": -1.4245119844116467,
+     "ci_high": 0.1281171218258053
+    }
+   },
+   "freezing": {
+    "trips": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -3.2709276233965143,
+     "ci_low": -12.088926770480173,
+     "ci_high": 5.004946153744888
+    },
+    "avg_fare": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -0.11281431477974592,
+     "ci_low": -1.6221379764961588,
+     "ci_high": 1.092078111621642
+    },
+    "tip_pct": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": 0.40736301254494156,
+     "ci_low": -0.331725995735224,
+     "ci_high": 1.0142473556487384
+    }
+   },
+   "hot": {
+    "trips": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": 4.312586894719406,
+     "ci_low": -0.2793758520230927,
+     "ci_high": 8.764737200647438
+    },
+    "avg_fare": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": -0.12438975522705419,
+     "ci_low": -0.7793776216886649,
+     "ci_high": 0.46703455545115075
+    },
+    "tip_pct": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": -0.13968141377393412,
+     "ci_low": -1.194211989998354,
+     "ci_high": 0.7111468944731826
+    }
+   }
+  },
+  "cp": {
+   "any_rain": {
+    "trips": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": -1.1559181799453926,
+     "ci_low": -3.217755905863826,
+     "ci_high": 1.0760873255126726
+    },
+    "avg_fare": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.6364488373495003,
+     "ci_low": 0.06025342002301865,
+     "ci_high": 1.2650443472905708
+    },
+    "tip_pct": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": -0.1322236443409871,
+     "ci_low": -0.3966431856530814,
+     "ci_high": 0.12680909688689834
+    }
+   },
+   "light_rain": {
+    "trips": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": -0.1609516387895703,
+     "ci_low": -2.6811419191265258,
+     "ci_high": 2.450375505245042
+    },
+    "avg_fare": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.6912783486397331,
+     "ci_low": -0.14509639552177006,
+     "ci_high": 1.5725800022721794
+    },
+    "tip_pct": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": -0.2869949998933812,
+     "ci_low": -0.6914472930759862,
+     "ci_high": 0.0820717395989029
+    }
+   },
+   "moderate_rain": {
+    "trips": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": -0.8991722272373021,
+     "ci_low": -3.7213202466448103,
+     "ci_high": 1.9586945133012603
+    },
+    "avg_fare": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.18743904773291986,
+     "ci_low": -0.6437215146712261,
+     "ci_high": 1.090209832230415
+    },
+    "tip_pct": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": -0.04509940519095972,
+     "ci_low": -0.38931195861535994,
+     "ci_high": 0.2988168619986783
+    }
+   },
+   "heavy_rain": {
+    "trips": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -2.4747986071960737,
+     "ci_low": -6.703218849942723,
+     "ci_high": 2.4117840674564914
+    },
+    "avg_fare": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": 0.9154266370823817,
+     "ci_low": 0.06683961573426819,
+     "ci_high": 1.785760257482226
+    },
+    "tip_pct": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -0.023539220571636772,
+     "ci_low": -0.4389973360140267,
+     "ci_high": 0.4111647190429907
+    }
+   },
+   "snow": {
+    "trips": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -4.8123291337744805,
+     "ci_low": -9.60614540914529,
+     "ci_high": -0.8748204773659578
+    },
+    "avg_fare": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -2.514920915295814,
+     "ci_low": -3.9579826838930603,
+     "ci_high": -1.4447861700963271
+    },
+    "tip_pct": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -0.0914544793958631,
+     "ci_low": -0.7992798740468379,
+     "ci_high": 0.7808549991421369
+    }
+   },
+   "freezing": {
+    "trips": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -3.3390412731070978,
+     "ci_low": -9.672828409468364,
+     "ci_high": 0.6657252708182224
+    },
+    "avg_fare": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -2.0927875831798612,
+     "ci_low": -3.091656651831393,
+     "ci_high": -0.8775863336759834
+    },
+    "tip_pct": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": 1.01948721507061,
+     "ci_low": -0.6888207003321125,
+     "ci_high": 2.2409928368408476
+    }
+   },
+   "hot": {
+    "trips": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": 5.904618960688564,
+     "ci_low": 2.2617698102486745,
+     "ci_high": 9.17237747427458
+    },
+    "avg_fare": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": -1.127030835288069,
+     "ci_low": -2.454052529978844,
+     "ci_high": 0.31375745002653266
+    },
+    "tip_pct": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": 0.016828821337076146,
+     "ci_low": -0.44678994365753455,
+     "ci_high": 0.5977794620753717
+    }
+   }
+  },
+  "both": {
+   "any_rain": {
+    "trips": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.2229888326416248,
+     "ci_low": -1.314060049905594,
+     "ci_high": 1.7430167551327775
+    },
+    "avg_fare": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.6072431912906575,
+     "ci_low": -0.08056500607979693,
+     "ci_high": 1.361762028648628
+    },
+    "tip_pct": {
+     "n_treated": 332,
+     "n_matched": 312,
+     "n_unmatched": 20,
+     "n_months": 36,
+     "estimate": 0.07433040829362847,
+     "ci_low": -0.20308816837971208,
+     "ci_high": 0.33973037695531594
+    }
+   },
+   "light_rain": {
+    "trips": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.7256460678706702,
+     "ci_low": -1.0090531679258345,
+     "ci_high": 2.5643101760069835
+    },
+    "avg_fare": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.39124447828860365,
+     "ci_low": -0.3554198473176019,
+     "ci_high": 1.1888388906478755
+    },
+    "tip_pct": {
+     "n_treated": 128,
+     "n_matched": 122,
+     "n_unmatched": 6,
+     "n_months": 35,
+     "estimate": 0.03990840106261333,
+     "ci_low": -0.3124440947679893,
+     "ci_high": 0.3935028332836378
+    }
+   },
+   "moderate_rain": {
+    "trips": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.135804571931302,
+     "ci_low": -1.8457170351019834,
+     "ci_high": 2.0827313852137133
+    },
+    "avg_fare": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.6365351605471385,
+     "ci_low": -0.22208434533951266,
+     "ci_high": 1.4337336389218474
+    },
+    "tip_pct": {
+     "n_treated": 85,
+     "n_matched": 82,
+     "n_unmatched": 3,
+     "n_months": 32,
+     "estimate": 0.3884999318223907,
+     "ci_low": -0.11153197056992668,
+     "ci_high": 0.7977817761712334
+    }
+   },
+   "heavy_rain": {
+    "trips": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -0.27863221661482995,
+     "ci_low": -3.0178564080372032,
+     "ci_high": 2.3013912873648352
+    },
+    "avg_fare": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": 0.8290015385797241,
+     "ci_low": -0.41437177697950184,
+     "ci_high": 2.2202485186193894
+    },
+    "tip_pct": {
+     "n_treated": 119,
+     "n_matched": 108,
+     "n_unmatched": 11,
+     "n_months": 33,
+     "estimate": -0.12532159214317384,
+     "ci_low": -0.5945073133571331,
+     "ci_high": 0.28631549229130704
+    }
+   },
+   "snow": {
+    "trips": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -7.769299162146977,
+     "ci_low": -15.820976895828808,
+     "ci_high": 0.8212454521607783
+    },
+    "avg_fare": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -1.9383167753651516,
+     "ci_low": -4.336692908136051,
+     "ci_high": 0.7381725018963954
+    },
+    "tip_pct": {
+     "n_treated": 25,
+     "n_matched": 23,
+     "n_unmatched": 2,
+     "n_months": 8,
+     "estimate": -0.35924440618665543,
+     "ci_low": -1.1694331065798533,
+     "ci_high": 0.32554265353881606
+    }
+   },
+   "freezing": {
+    "trips": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -3.870360966553612,
+     "ci_low": -11.152692789431956,
+     "ci_high": 1.6945968745278268
+    },
+    "avg_fare": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": -0.3570062585913765,
+     "ci_low": -2.484263306481732,
+     "ci_high": 1.3117550562133162
+    },
+    "tip_pct": {
+     "n_treated": 45,
+     "n_matched": 37,
+     "n_unmatched": 8,
+     "n_months": 8,
+     "estimate": 0.4909326497510599,
+     "ci_low": -0.22834178683728626,
+     "ci_high": 0.9439688149237636
+    }
+   },
+   "hot": {
+    "trips": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": 4.406570558613855,
+     "ci_low": 0.2244658299375282,
+     "ci_high": 8.332949344108274
+    },
+    "avg_fare": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": -0.28872638904567693,
+     "ci_low": -1.2976263834034798,
+     "ci_high": 0.6767421833492782
+    },
+    "tip_pct": {
+     "n_treated": 43,
+     "n_matched": 38,
+     "n_unmatched": 5,
+     "n_months": 10,
+     "estimate": -0.13688971737166525,
+     "ci_low": -1.1273680438826121,
+     "ci_high": 0.6544859796146199
+    }
+   }
+  }
+ },
+ "regression": {
+  "jfk": {
+   "trips": {
+    "n_days": 1092,
+    "r2": 0.6008137151294395,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": 1.4141830056698446,
+      "ci_low": -0.6633980768705139,
+      "ci_high": 3.535215777426104,
+      "p_value": 0.18361623828350804
+     },
+     "moderate_rain": {
+      "estimate": 0.2631003550404465,
+      "ci_low": -2.034471335531829,
+      "ci_high": 2.614556669574686,
+      "p_value": 0.8241969648139351
+     },
+     "heavy_rain": {
+      "estimate": -0.9741716973713843,
+      "ci_low": -3.4589032625118032,
+      "ci_high": 1.5745107773758926,
+      "p_value": 0.45022474513467936
+     },
+     "snow": {
+      "estimate": -8.448823104439695,
+      "ci_low": -14.88652613169027,
+      "ci_high": -1.5241934087841358,
+      "p_value": 0.01765209688245887
+     },
+     "freezing": {
+      "estimate": -0.39563446715021877,
+      "ci_low": -7.035836133324446,
+      "ci_high": 6.718860478644073,
+      "p_value": 0.9103340800156533
+     },
+     "hot": {
+      "estimate": 1.0729808116141548,
+      "ci_low": -1.7124998191301533,
+      "ci_high": 3.937402328330486,
+      "p_value": 0.45414894546263185
+     }
+    }
+   },
+   "avg_fare": {
+    "n_days": 1092,
+    "r2": 0.576811178024526,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": 0.09601221726176501,
+      "ci_low": -0.172874387728561,
+      "ci_high": 0.3656230743618982,
+      "p_value": 0.4843984793656211
+     },
+     "moderate_rain": {
+      "estimate": 0.06410945088546338,
+      "ci_low": -0.24936881851845838,
+      "ci_high": 0.3785728631824359,
+      "p_value": 0.6889117313061183
+     },
+     "heavy_rain": {
+      "estimate": 0.002522306004282271,
+      "ci_low": -0.34899668383849836,
+      "ci_high": 0.3552812793505833,
+      "p_value": 0.9887988160142093
+     },
+     "snow": {
+      "estimate": -0.7746580966450534,
+      "ci_low": -1.6018231852019227,
+      "ci_high": 0.05946039395519076,
+      "p_value": 0.06863891300286397
+     },
+     "freezing": {
+      "estimate": -0.19870747525243537,
+      "ci_low": -0.7296898075470959,
+      "ci_high": 0.33511500367480185,
+      "p_value": 0.4649076767215483
+     },
+     "hot": {
+      "estimate": -0.08566710444330994,
+      "ci_low": -0.5075238624287493,
+      "ci_high": 0.3379783629116062,
+      "p_value": 0.691366050439848
+     }
+    }
+   },
+   "tip_pct": {
+    "n_days": 1092,
+    "r2": 0.5607833499802322,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": -0.045707511592762984,
+      "ci_low": -0.3338683255690311,
+      "ci_high": 0.24328645054845222,
+      "p_value": 0.7562823443116569
+     },
+     "moderate_rain": {
+      "estimate": 0.1918823433243455,
+      "ci_low": -0.1459065543081839,
+      "ci_high": 0.5308139215964847,
+      "p_value": 0.265900344757508
+     },
+     "heavy_rain": {
+      "estimate": -0.08075844792916342,
+      "ci_low": -0.34623327846566854,
+      "ci_high": 0.1854236000860876,
+      "p_value": 0.5517127620322908
+     },
+     "snow": {
+      "estimate": -0.6029687912574522,
+      "ci_low": -1.3669583163543053,
+      "ci_high": 0.16693842617145904,
+      "p_value": 0.12447252096757062
+     },
+     "freezing": {
+      "estimate": 0.18672891459279306,
+      "ci_low": -0.32188902289113086,
+      "ci_high": 0.697942128048501,
+      "p_value": 0.4725086750617632
+     },
+     "hot": {
+      "estimate": -0.3206149081494525,
+      "ci_low": -0.8431340534620357,
+      "ci_high": 0.20465771524669218,
+      "p_value": 0.23109477560236658
+     }
+    }
+   }
+  },
+  "cp": {
+   "trips": {
+    "n_days": 1092,
+    "r2": 0.6360608519360924,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": -0.9816846164436122,
+      "ci_low": -3.070674126362982,
+      "ci_high": 1.1523261203667978,
+      "p_value": 0.36450553719792655
+     },
+     "moderate_rain": {
+      "estimate": -2.061079224685247,
+      "ci_low": -4.239950375491475,
+      "ci_high": 0.16736875393623674,
+      "p_value": 0.06963436728763071
+     },
+     "heavy_rain": {
+      "estimate": -3.345276987969348,
+      "ci_low": -5.771083996452731,
+      "ci_high": -0.8570205755027427,
+      "p_value": 0.008699179016559127
+     },
+     "snow": {
+      "estimate": -1.0276090104181512,
+      "ci_low": -5.18048562758019,
+      "ci_high": 3.307154049756389,
+      "p_value": 0.6367210501557332
+     },
+     "freezing": {
+      "estimate": -1.0577812826057076,
+      "ci_low": -4.552945155553633,
+      "ci_high": 2.565371563062957,
+      "p_value": 0.5622287940461266
+     },
+     "hot": {
+      "estimate": 3.43802989200499,
+      "ci_low": 0.4624458116437191,
+      "ci_high": 6.501747409172065,
+      "p_value": 0.023221454183648085
+     }
+    }
+   },
+   "avg_fare": {
+    "n_days": 1092,
+    "r2": 0.5063461222230943,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": 0.36008400469624835,
+      "ci_low": -0.319182099587656,
+      "ci_high": 1.0439789076813089,
+      "p_value": 0.29958049047427304
+     },
+     "moderate_rain": {
+      "estimate": 0.16670899451673993,
+      "ci_low": -0.50732750069028,
+      "ci_high": 0.8453119083901672,
+      "p_value": 0.6287221431176361
+     },
+     "heavy_rain": {
+      "estimate": -0.021625379509049303,
+      "ci_low": -0.8102772756865995,
+      "ci_high": 0.7732970434555675,
+      "p_value": 0.9573131924712986
+     },
+     "snow": {
+      "estimate": -1.8009391535044994,
+      "ci_low": -3.439356519865888,
+      "ci_high": -0.13472152225624257,
+      "p_value": 0.03425945386127761
+     },
+     "freezing": {
+      "estimate": -0.32002135909096063,
+      "ci_low": -1.6193908007043567,
+      "ci_high": 0.9965096040818189,
+      "p_value": 0.6320825255186118
+     },
+     "hot": {
+      "estimate": -1.1569106198883516,
+      "ci_low": -1.9124251404259884,
+      "ci_high": -0.39557678745968383,
+      "p_value": 0.002954587602059443
+     }
+    }
+   },
+   "tip_pct": {
+    "n_days": 1092,
+    "r2": 0.6876973985997967,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": -0.2722504673327242,
+      "ci_low": -0.5764107891353176,
+      "ci_high": 0.03284035297725918,
+      "p_value": 0.08024291798883014
+     },
+     "moderate_rain": {
+      "estimate": -0.1038023702847779,
+      "ci_low": -0.5013995900445156,
+      "ci_high": 0.29538365121195564,
+      "p_value": 0.6097629334355423
+     },
+     "heavy_rain": {
+      "estimate": 0.06936590726931424,
+      "ci_low": -0.3040454018964467,
+      "ci_high": 0.44417582891012053,
+      "p_value": 0.7162055989979943
+     },
+     "snow": {
+      "estimate": 0.4503010227058901,
+      "ci_low": -0.4156991065820903,
+      "ci_high": 1.3238320199840947,
+      "p_value": 0.3091439099333251
+     },
+     "freezing": {
+      "estimate": -0.26520344794404016,
+      "ci_low": -0.9288499237237402,
+      "ci_high": 0.40288858685537665,
+      "p_value": 0.4356338438383821
+     },
+     "hot": {
+      "estimate": 0.2765978947799175,
+      "ci_low": -0.16489518465108155,
+      "ci_high": 0.7200433549846563,
+      "p_value": 0.21985407459600836
+     }
+    }
+   }
+  },
+  "both": {
+   "trips": {
+    "n_days": 1092,
+    "r2": 0.5450164101004036,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": 0.8259720848810659,
+      "ci_low": -0.833875997547151,
+      "ci_high": 2.51360279655346,
+      "p_value": 0.3314243361714564
+     },
+     "moderate_rain": {
+      "estimate": -0.32058281605645833,
+      "ci_low": -2.2145723857061372,
+      "ci_high": 1.6100911203486667,
+      "p_value": 0.7428657206281843
+     },
+     "heavy_rain": {
+      "estimate": -1.4932072202992974,
+      "ci_low": -3.5166515234504203,
+      "ci_high": 0.5726726628001222,
+      "p_value": 0.15539978714539593
+     },
+     "snow": {
+      "estimate": -6.4624171503358525,
+      "ci_low": -11.780434247172956,
+      "ci_high": -0.8238214426099733,
+      "p_value": 0.025289348996637196
+     },
+     "freezing": {
+      "estimate": -0.4486627232424989,
+      "ci_low": -5.997268499789509,
+      "ci_high": 5.427455090159117,
+      "p_value": 0.8778631034819004
+     },
+     "hot": {
+      "estimate": 1.6516460259033527,
+      "ci_low": -0.8259053904423386,
+      "ci_high": 4.19109123663961,
+      "p_value": 0.1931862931413615
+     }
+    }
+   },
+   "avg_fare": {
+    "n_days": 1092,
+    "r2": 0.6060267830045845,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": 0.5216103742468281,
+      "ci_low": -0.047209582711071896,
+      "ci_high": 1.093667420855593,
+      "p_value": 0.07235600873204928
+     },
+     "moderate_rain": {
+      "estimate": 0.49054155305623404,
+      "ci_low": -0.13829895350739863,
+      "ci_high": 1.1233419399198308,
+      "p_value": 0.12654766625611913
+     },
+     "heavy_rain": {
+      "estimate": 0.3660952317106725,
+      "ci_low": -0.3106898253654844,
+      "ci_high": 1.0474749440480657,
+      "p_value": 0.28979931776355705
+     },
+     "snow": {
+      "estimate": -2.3206393975239714,
+      "ci_low": -3.899370777325095,
+      "ci_high": -0.7159727789036285,
+      "p_value": 0.004738917527069211
+     },
+     "freezing": {
+      "estimate": -0.15014045663321873,
+      "ci_low": -1.3339845831546904,
+      "ci_high": 1.0479080229269133,
+      "p_value": 0.8049783397395677
+     },
+     "hot": {
+      "estimate": -0.5364941052099836,
+      "ci_low": -1.205363180007435,
+      "ci_high": 0.13690341215906177,
+      "p_value": 0.11815425063555476
+     }
+    }
+   },
+   "tip_pct": {
+    "n_days": 1092,
+    "r2": 0.6413005339541529,
+    "effects_pct": {
+     "light_rain": {
+      "estimate": -0.10559690230022012,
+      "ci_low": -0.37959230734989635,
+      "ci_high": 0.1691520981595307,
+      "p_value": 0.4508920493779821
+     },
+     "moderate_rain": {
+      "estimate": 0.1084814818238522,
+      "ci_low": -0.20414557287369295,
+      "ci_high": 0.4220878925867311,
+      "p_value": 0.4968765178608081
+     },
+     "heavy_rain": {
+      "estimate": -0.12071280388289418,
+      "ci_low": -0.3791169266826433,
+      "ci_high": 0.13836158692313028,
+      "p_value": 0.36079305674785345
+     },
+     "snow": {
+      "estimate": -0.2958858646651019,
+      "ci_low": -0.9332450229681655,
+      "ci_high": 0.3455738286435528,
+      "p_value": 0.36512970165652203
+     },
+     "freezing": {
+      "estimate": 0.13575817980391314,
+      "ci_low": -0.3288056218429092,
+      "ci_high": 0.6024872963859895,
+      "p_value": 0.5674487627581342
+     },
+     "hot": {
+      "estimate": -0.24633948734811284,
+      "ci_low": -0.7398779978842418,
+      "ci_high": 0.24965298210393172,
+      "p_value": 0.3297337595941451
+     }
+    }
+   }
+  }
+ },
+ "naive": {
+  "jfk": {
+   "max_of_4_stations": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 3412798,
+     "days": 661,
+     "trips_per_day": 5163.083207261725
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 832698,
+     "days": 162,
+     "trips_per_day": 5140.111111111111
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 505947,
+     "days": 99,
+     "trips_per_day": 5110.575757575758
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 871857,
+     "days": 170,
+     "trips_per_day": 5128.570588235294
+    }
+   ],
+   "central_park": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 3751403,
+     "days": 725,
+     "trips_per_day": 5174.348965517242
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 723704,
+     "days": 141,
+     "trips_per_day": 5132.652482269504
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 481218,
+     "days": 95,
+     "trips_per_day": 5065.452631578947
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 666975,
+     "days": 131,
+     "trips_per_day": 5091.412213740458
+    }
+   ]
+  },
+  "cp": {
+   "max_of_4_stations": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 1072061,
+     "days": 661,
+     "trips_per_day": 1621.877458396369
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 252666,
+     "days": 162,
+     "trips_per_day": 1559.6666666666667
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 157409,
+     "days": 99,
+     "trips_per_day": 1589.989898989899
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 266311,
+     "days": 170,
+     "trips_per_day": 1566.535294117647
+    }
+   ],
+   "central_park": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 1169783,
+     "days": 725,
+     "trips_per_day": 1613.4937931034483
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 224580,
+     "days": 141,
+     "trips_per_day": 1592.7659574468084
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 150194,
+     "days": 95,
+     "trips_per_day": 1580.9894736842105
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 203890,
+     "days": 131,
+     "trips_per_day": 1556.4122137404581
+    }
+   ]
+  },
+  "both": {
+   "max_of_4_stations": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 4484859,
+     "days": 661,
+     "trips_per_day": 6784.960665658094
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 1085364,
+     "days": 162,
+     "trips_per_day": 6699.777777777777
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 663356,
+     "days": 99,
+     "trips_per_day": 6700.565656565656
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 1138168,
+     "days": 170,
+     "trips_per_day": 6695.105882352941
+    }
+   ],
+   "central_park": [
+    {
+     "rain_level": "no rain",
+     "total_trips": 4921186,
+     "days": 725,
+     "trips_per_day": 6787.84275862069
+    },
+    {
+     "rain_level": "light rain",
+     "total_trips": 948284,
+     "days": 141,
+     "trips_per_day": 6725.418439716312
+    },
+    {
+     "rain_level": "moderate rain",
+     "total_trips": 631412,
+     "days": 95,
+     "trips_per_day": 6646.442105263158
+    },
+    {
+     "rain_level": "heavy rain",
+     "total_trips": 870865,
+     "days": 131,
+     "trips_per_day": 6647.824427480916
+    }
+   ]
+  }
+ },
+ "data_quality": {
+  "rows_valid": 106740660,
+  "zone_trips_exact_dedupe": {
+   "JFK": 5624721,
+   "Central Park": 1748947
+  },
+  "zone_trips_spark_date_dedupe": {
+   "JFK": 5132673,
+   "Central Park": 968106
+  },
+  "data_gap_rule": "fewer than 300 raw records citywide in any hour from 08:00 to 21:59",
+  "data_gap_dates": [
+   {
+    "date": "2023-09-21",
+    "citywide_records": 41939,
+    "full_daytime_hours": 9
+   },
+   {
+    "date": "2023-09-22",
+    "citywide_records": 4633,
+    "full_daytime_hours": 3
+   },
+   {
+    "date": "2023-09-23",
+    "citywide_records": 5732,
+    "full_daytime_hours": 9
+   },
+   {
+    "date": "2023-09-24",
+    "citywide_records": 4813,
+    "full_daytime_hours": 4
+   }
+  ],
+  "spark_date_dedupe_share_lost": {
+   "JFK": 0.08747953898513361,
+   "Central Park": 0.4464635006092237
+  }
+ }
+}
