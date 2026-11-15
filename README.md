@@ -13,7 +13,7 @@
 
 This is a cloud data pipeline (PySpark on Dataproc, a Snowflake star schema, Luigi orchestration) built to answer one question: does weather change how many people take a yellow taxi from JFK and from Central Park? It covers 7.37 million trips over 2023 to 2025. The first dashboard said yes. This repo explains why that answer was an artifact, and gives the honest one, with a dashboard where you can check it yourself.
 
-It started as our MSBA 405 team project at UCLA Anderson (team 19). The team built the pipeline together, and teammate Zihan Ye published the [original Tableau dashboard](https://public.tableau.com/app/profile/zihan.ye/viz/405FinalProjectNYCTaxiWeatherDashboard/Dashboard1). I published the code and then came back to it on my own: I re-ran the analysis per day on the public data, traced the problems below to the Spark job, fixed the pipeline so the warehouse matches, and designed and built the new dashboard. I build with Claude Code as a pair programmer, and the history shows how: small commits, each with its reason in the message.
+I re-ran the analysis per day on the public data, traced the problems below to the Spark job, fixed the pipeline so the warehouse matches, and designed and built the new dashboard. I build with Claude Code as a pair programmer, and the history shows how: small commits, each with its reason in the message.
 
 **Live dashboard:** [hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline](https://hansonyjy.github.io/end-to-end-nyc-taxi-analytics-pipeline/). It is a static site served by GitHub Pages from `/docs`, so it loads instantly and runs entirely in your browser.
 
@@ -29,7 +29,7 @@ It works on a phone: everything stacks at 375px with no sideways scroll.
 
 <p align="center"><img src="docs/img/phone.png" alt="The dashboard at phone width: the headline card reads +1.0% for any rain at JFK with a 95% interval of -1.0% to +3.2% over 312 days, the verdict reads no clear effect, a typical dry day has 5,203 trips, and naive totals would say -53%" width="300"></p>
 
-## What We Found
+## What I Found
 
 <p align="center"><img src="docs/img/results.svg" alt="Change in trips per day against dry days in the same month and weekday, with 95% intervals. Any rain: JFK +1.0% (-1.0% to +3.2%), Central Park -1.2% (-3.2% to +1.1%), 312 days. Light rain: JFK +1.3%, Central Park -0.2%. Moderate rain: JFK +0.8%, Central Park -0.9%. Heavy rain: JFK +1.0% (-2.5% to +4.7%), Central Park -2.5% (-6.7% to +2.4%), 108 days. Snow: JFK -8.4%, Central Park -4.8% (-9.6% to -0.9%), 23 days. Freezing: both -3.3%, 37 days. Hot: JFK +4.3%, Central Park +5.9% (+2.3% to +9.2%), 38 days" width="100%"></p>
 
@@ -46,7 +46,7 @@ JFK is booked by flights, not by the sky, so a flat airport line was expected. T
 
 <p align="center"><img src="docs/img/naive.svg" alt="Three readings of the same 1,092 days, JFK and Central Park combined. Total trips by bucket: dry 4.92M over 725 days, light 0.95M over 141, moderate 0.63M over 95, heavy 0.87M over 131. Trips per day: dry 6,788, light 6,725, moderate 6,646, heavy 6,648. Against dry days in the same month and weekday: light +0.7%, moderate +0.1%, heavy -0.3%. Taking the max of four stations labels 170 days heavy rain instead of 131" width="100%"></p>
 
-The Tableau view charted **total** trips per weather bucket. A bucket with more days always holds more trips, so the chart mostly measured how often each kind of weather happens: dry days hold 67% of all trips because 66% of days were dry. Divided by days, the buckets sit within about 2% of each other (dry 6,788 trips per day, heavy rain 6,648), and like for like the gap closes to −0.3%.
+The original Tableau view charted **total** trips per weather bucket. A bucket with more days always holds more trips, so the chart mostly measured how often each kind of weather happens: dry days hold 67% of all trips because 66% of days were dry. Divided by days, the buckets sit within about 2% of each other (dry 6,788 trips per day, heavy rain 6,648), and like for like the gap closes to −0.3%.
 
 Two pipeline choices made it worse. The weather came from the **maximum** precipitation across every station in the NOAA export, so a shower at any one gauge turned the whole city into a rain day: even with only four NYC airport-class stations, the max rule labels 170 days heavy rain instead of 131. And the Spark job's de-duplication keyed on the pickup **date** and the fare, which merged different trips and silently dropped **45% of Central Park pickups** and 9% of JFK pickups. Busy days lost the most, which flattens exactly the variation the project set out to measure. Temperature and monthly charts were confounded by season as well, since cold days are winter days.
 
@@ -89,8 +89,8 @@ The dashboard's estimator and its seeded bootstrap (mulberry32) mirror the Pytho
 ## Assumptions, Stated Plainly
 
 - **One station stands for the city.** NOAA's Central Park station (USW00094728) is the weather for both zones, including JFK about 14 miles away. The alternative, the max across stations, is what inflated the rain buckets. Central Park does not report a daily average temperature for these years, so it is the mean of the high and low, NOAA's own convention for normals.
-- **What the original dashboard got wrong.** It summed trips per bucket instead of averaging per day, used max-across-stations rain, lost much of Central Park to the date-level dedupe, and did not control for season. Its numbers came from the pipeline as it was then; this repo fixes the pipeline, but I have not changed the published Tableau workbook, which belongs to its author.
-- **Buckets keep the team's thresholds.** Light rain is up to 0.1 inches, moderate up to 0.3, heavy above 0.3; hot is a daily average of 80°F and up, freezing below 32°F.
+- **What the original dashboard got wrong.** It summed trips per bucket instead of averaging per day, used max-across-stations rain, lost much of Central Park to the date-level dedupe, and did not control for season. Its numbers came from the pipeline as it was then; this repo fixes the pipeline.
+- **Buckets keep the original thresholds.** Light rain is up to 0.1 inches, moderate up to 0.3, heavy above 0.3; hot is a daily average of 80°F and up, freezing below 32°F.
 - **Excluded days.** 33 federal holidays (unusual demand for reasons other than weather) and four days, 2023-09-21 to 2023-09-24, when the raw TLC files are nearly empty citywide.
 - **Tip % is card trips only.** Cash tips are not recorded, so the tip rate is card tips over card fares.
 - **Association, not a forecast.** These are three years at two zones. They say rain has not mattered much here, not that it never could.
@@ -161,6 +161,6 @@ The repo ships no credentials. Stage-by-stage details are in [`docs/pipeline.md`
 
 ## About
 
-Built by **Hanson Yang**: MSBA, UCLA Anderson (Dec 2026); B.Com Finance, UBC. Originally an MSBA 405 team project (team 19), with the original Tableau dashboard published by Zihan Ye.
+Built by **Hanson Yang**: MSBA, UCLA Anderson (Dec 2026); B.Com Finance, UBC. The cloud pipeline began as a UCLA Anderson class project; the per-day re-analysis, the pipeline fixes and the dashboard are my own work.
 
 *Portfolio project on public NYC TLC and NOAA data. Not affiliated with either agency.*

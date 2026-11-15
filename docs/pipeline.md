@@ -63,7 +63,7 @@ Run by Luigi through SnowSQL after `__GCS_BUCKET_NO_PREFIX__` is replaced with y
 | `DIM_LOCATION` | `LOCATION_ID`, `LOCATION_NAME` |
 | `DIM_WEATHER` | `WEATHER_ID`, `RAIN_LEVEL`, `SNOW_LEVEL`, `TEMP_LEVEL` |
 
-`AVG_TIP_PCT` is the mean of tip / fare over all trips, as the team built it. `CARD_TIP_PCT` is sum of card tips / sum of card fares, the comparable rate, because cash tips are not recorded.
+`AVG_TIP_PCT` is the mean of tip / fare over all trips, as originally built. `CARD_TIP_PCT` is sum of card tips / sum of card fares, the comparable rate, because cash tips are not recorded.
 
 ## Luigi: `Luigi/pipeline.py` and `./pipeline.py`
 
