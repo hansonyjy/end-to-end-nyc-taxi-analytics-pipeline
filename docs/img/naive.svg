@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="t d">
+<title id="t">Totals count days, not demand</title><desc id="d">Three readings of the same days, JFK and Central Park combined, Central Park weather. Total trips: Dry 4,921,186 over 725 days, Light 948,284 over 141 days, Moderate 631,412 over 95 days, Heavy 870,865 over 131 days. Trips per day: Dry 6,788, Light 6,725, Moderate 6,646, Heavy 6,648. Against dry days in the same month and weekday: Light +0.7%, Moderate +0.1%, Heavy −0.3%. Taking the max of four stations instead labels 170 days heavy rain, not 131.</desc>
+<rect width="1200" height="560" rx="18" fill="#f6f5f0"/>
+<text x="48" y="62" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#0b6e4b">JFK + Central Park · rain buckets from Central Park · 1,092 days · 7.37M trips</text>
+<text x="48" y="104" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="-1" fill="#14261f">Totals count days, not demand</text>
+<rect x="32" y="126" width="352" height="392" rx="14" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="48" y="154" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">1  What the old dashboard charted</text>
+<text x="48" y="180" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#14261f">Total trips by bucket</text>
+<rect x="60" y="220.0" width="58" height="220.0" rx="4" fill="#a3aaa6"/>
+<text x="89.0" y="212.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">4.92M</text>
+<text x="89.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Dry</text>
+<text x="89.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">725 days</text>
+<rect x="140" y="397.6" width="58" height="42.4" rx="4" fill="#a3aaa6"/>
+<text x="169.0" y="389.6" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">0.95M</text>
+<text x="169.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Light</text>
+<text x="169.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">141 days</text>
+<rect x="220" y="411.8" width="58" height="28.2" rx="4" fill="#a3aaa6"/>
+<text x="249.0" y="403.8" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">0.63M</text>
+<text x="249.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Moderate</text>
+<text x="249.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">95 days</text>
+<rect x="300" y="401.1" width="58" height="38.9" rx="4" fill="#a3aaa6"/>
+<text x="329.0" y="393.1" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">0.87M</text>
+<text x="329.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Heavy</text>
+<text x="329.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">131 days</text>
+<rect x="412" y="126" width="352" height="392" rx="14" fill="#fdfdfb" stroke="#dcdcd3"/>
+<text x="428" y="154" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">2  Divide by the days in each bucket</text>
+<text x="428" y="180" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#14261f">Trips per day</text>
+<rect x="440" y="220.0" width="58" height="220.0" rx="4" fill="#3f4f48"/>
+<text x="469.0" y="212.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">6,788</text>
+<text x="469.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Dry</text>
+<text x="469.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">725 days</text>
+<rect x="520" y="222.0" width="58" height="218.0" rx="4" fill="#3f4f48"/>
+<text x="549.0" y="214.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">6,725</text>
+<text x="549.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Light</text>
+<text x="549.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">141 days</text>
+<rect x="600" y="224.6" width="58" height="215.4" rx="4" fill="#3f4f48"/>
+<text x="629.0" y="216.6" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">6,646</text>
+<text x="629.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Moderate</text>
+<text x="629.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">95 days</text>
+<rect x="680" y="224.5" width="58" height="215.5" rx="4" fill="#3f4f48"/>
+<text x="709.0" y="216.5" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">6,648</text>
+<text x="709.0" y="462" text-anchor="middle" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#14261f">Heavy</text>
+<text x="709.0" y="480" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">131 days</text>
+<rect x="792" y="126" width="352" height="392" rx="14" fill="#e3f1ea" stroke="#0f8f62" stroke-opacity="0.5"/>
+<text x="808" y="154" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#0b6e4b">3  Compare like with like</text>
+<text x="808" y="180" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#14261f">vs dry days, same month and weekday</text>
+<line x1="904.0" x2="904.0" y1="220" y2="440" stroke="#dcdcd3" stroke-width="1"/>
+<text x="904.0" y="462" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">−6%</text>
+<line x1="962.0" x2="962.0" y1="220" y2="440" stroke="#dcdcd3" stroke-width="1"/>
+<text x="962.0" y="462" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">−3%</text>
+<line x1="1020.0" x2="1020.0" y1="220" y2="440" stroke="#3f4f48" stroke-width="1.5"/>
+<text x="1020.0" y="462" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">0%</text>
+<line x1="1078.0" x2="1078.0" y1="220" y2="440" stroke="#dcdcd3" stroke-width="1"/>
+<text x="1078.0" y="462" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">+3%</text>
+<line x1="1136.0" x2="1136.0" y1="220" y2="440" stroke="#dcdcd3" stroke-width="1"/>
+<text x="1136.0" y="462" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">+6%</text>
+<text x="808" y="254" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#14261f">Light</text>
+<text x="808" y="273" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#0b6e4b">+0.7%</text>
+<line x1="1000.5" x2="1069.6" y1="258" y2="258" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="1000.5" x2="1000.5" y1="253" y2="263" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="1069.6" x2="1069.6" y1="253" y2="263" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="1034.0" cy="258" r="6" fill="#0f8f62" stroke="#e3f1ea" stroke-width="2"/>
+<text x="808" y="316" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#14261f">Moderate</text>
+<text x="808" y="335" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#0b6e4b">+0.1%</text>
+<line x1="984.3" x2="1060.3" y1="320" y2="320" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="984.3" x2="984.3" y1="315" y2="325" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="1060.3" x2="1060.3" y1="315" y2="325" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="1022.6" cy="320" r="6" fill="#0f8f62" stroke="#e3f1ea" stroke-width="2"/>
+<text x="808" y="378" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#14261f">Heavy</text>
+<text x="808" y="397" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#0b6e4b">−0.3%</text>
+<line x1="961.7" x2="1064.5" y1="382" y2="382" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="961.7" x2="961.7" y1="377" y2="387" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="1064.5" x2="1064.5" y1="377" y2="387" stroke="#0f8f62" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="1014.6" cy="382" r="6" fill="#0f8f62" stroke="#e3f1ea" stroke-width="2"/>
+<text x="48" y="530" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#5f6b65">Dry days hold 67% of all trips because 66% of days were dry. Taking the wettest of four NYC stations would call 170 days heavy rain, not 131.</text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 545" width="1200" height="545" role="img" aria-labelledby="t d">
+<title id="t">Star schema: one fact table, three dimensions</title><desc id="d">FACT_TAXI_DEMAND holds one row per date and pickup location with trip_count, avg_fare, avg_tip, avg_tip_pct, avg_total, avg_distance and card_tip_pct. It joins DIM_TIME on DATE_ID, DIM_LOCATION on LOCATION_ID (132 JFK, 43 Central Park) and DIM_WEATHER on WEATHER_ID (rain, snow and temperature level).</desc>
+<rect width="1200" height="545" rx="18" fill="#f6f5f0"/>
+<text x="48" y="58" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.8" fill="#14261f">Star schema in Snowflake</text>
+<text x="48" y="86" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">NYCTAXI_DB.STAR_SCHEMA · grain: one row per date and pickup zone</text>
+<rect x="420" y="170" width="360" height="296" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<path d="M420 182 a12 12 0 0 1 12 -12 h336 a12 12 0 0 1 12 12 v28 h-360 z" fill="#14261f"/>
+<text x="436" y="197" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" font-weight="600" fill="#f6f5f0">FACT_TAXI_DEMAND</text>
+<text x="436" y="234" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">DATE_ID</text>
+<text x="764" y="234" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">DATE  FK</text>
+<text x="436" y="258" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">LOCATION_ID</text>
+<text x="764" y="258" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT  FK</text>
+<text x="436" y="282" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">WEATHER_ID</text>
+<text x="764" y="282" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT  FK</text>
+<text x="436" y="306" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">TRIP_COUNT</text>
+<text x="764" y="306" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<text x="436" y="330" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">AVG_FARE</text>
+<text x="764" y="330" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<text x="436" y="354" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">AVG_TIP</text>
+<text x="764" y="354" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<text x="436" y="378" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">AVG_TIP_PCT</text>
+<text x="764" y="378" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<text x="436" y="402" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">AVG_TOTAL</text>
+<text x="764" y="402" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<text x="436" y="426" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">AVG_DISTANCE</text>
+<text x="764" y="426" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<text x="436" y="450" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">CARD_TIP_PCT</text>
+<text x="764" y="450" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">FLOAT</text>
+<rect x="48" y="130" width="300" height="200" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<path d="M48 142 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v28 h-300 z" fill="#3f4f48"/>
+<text x="64" y="157" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" font-weight="600" fill="#f6f5f0">DIM_TIME</text>
+<text x="64" y="194" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">DATE_ID</text>
+<text x="332" y="194" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">DATE  PK</text>
+<text x="64" y="218" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">YEAR</text>
+<text x="332" y="218" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<text x="64" y="242" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">QUARTER</text>
+<text x="332" y="242" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<text x="64" y="266" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">MONTH</text>
+<text x="332" y="266" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<text x="64" y="290" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">DAY</text>
+<text x="332" y="290" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<text x="64" y="314" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">DAY_OF_WEEK</text>
+<text x="332" y="314" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT</text>
+<rect x="852" y="130" width="300" height="104" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<path d="M852 142 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v28 h-300 z" fill="#3f4f48"/>
+<text x="868" y="157" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" font-weight="600" fill="#f6f5f0">DIM_LOCATION</text>
+<text x="868" y="194" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">LOCATION_ID</text>
+<text x="1136" y="194" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT  PK</text>
+<text x="868" y="218" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">LOCATION_NAME</text>
+<text x="1136" y="218" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">STRING</text>
+<rect x="852" y="340" width="300" height="152" rx="12" fill="#fdfdfb" stroke="#dcdcd3"/>
+<path d="M852 352 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v28 h-300 z" fill="#3f4f48"/>
+<text x="868" y="367" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" font-weight="600" fill="#f6f5f0">DIM_WEATHER</text>
+<text x="868" y="404" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#0b6e4b" font-weight="600">WEATHER_ID</text>
+<text x="1136" y="404" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">INT  PK</text>
+<text x="868" y="428" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">RAIN_LEVEL</text>
+<text x="1136" y="428" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">STRING</text>
+<text x="868" y="452" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">SNOW_LEVEL</text>
+<text x="1136" y="452" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">STRING</text>
+<text x="868" y="476" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f" font-weight="400">TEMP_LEVEL</text>
+<text x="1136" y="476" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#5f6b65">STRING</text>
+<path d="M420 234 C 384 234, 384 194, 348 194" fill="none" stroke="#0f8f62" stroke-width="2"/>
+<path d="M780 258 C 816 258, 816 194, 852 194" fill="none" stroke="#0f8f62" stroke-width="2"/>
+<path d="M780 282 C 816 282, 816 404, 852 404" fill="none" stroke="#0f8f62" stroke-width="2"/>
+<text x="852" y="260" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#5f6b65">132 JFK · 43 Central Park</text>
+<text x="48" y="360" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14.5" fill="#3f4f48">Ask the question per day:</text>
+<text x="48" y="384" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#14261f">AVG(TRIP_COUNT) GROUP BY RAIN_LEVEL</text>
+<text x="48" y="406" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#5f6b65">not SUM(TRIP_COUNT), which counts days</text>
+</svg>

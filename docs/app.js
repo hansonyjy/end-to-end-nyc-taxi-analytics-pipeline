@@ -22,9 +22,9 @@
   ];
   const COND = Object.fromEntries(CONDITIONS.map((c) => [c.key, c]));
   const METRICS = {
-    trips: { label: "Trips per day", short: "trips per day", fmt: (v) => fmtInt(v) },
-    avg_fare: { label: "Average fare", short: "average fare", fmt: (v) => "$" + v.toFixed(2) },
-    tip_pct: { label: "Tip % (card trips)", short: "tip %", fmt: (v) => v.toFixed(1) + "%" },
+    trips: { label: "Trips per day", title: "Trips per Day", short: "trips per day", fmt: (v) => fmtInt(v) },
+    avg_fare: { label: "Average fare", title: "Average Fare", short: "average fare", fmt: (v) => "$" + v.toFixed(2) },
+    tip_pct: { label: "Tip % (card trips)", title: "Tip % on Card Trips", short: "tip %", fmt: (v) => v.toFixed(1) + "%" },
   };
   const SEASONS = { all: null, winter: [12, 1, 2], spring: [3, 4, 5], summer: [6, 7, 8], fall: [9, 10, 11] };
   const RAIN_BUCKETS = [
@@ -456,7 +456,7 @@
     if (charts.prcp) charts.prcp.destroy();
     charts.prcp = new Chart(document.getElementById("prcp-chart"), pcfg);
 
-    document.getElementById("ts-title").textContent = METRICS[metric].label;
+    document.getElementById("ts-title").textContent = METRICS[metric].title;
     document.getElementById("ts-legend").innerHTML = zoneList.map((z) => `<span class="key"><span class="sw" style="background:${ZONE_COLOR[z]}"></span>${z}</span>`).join("") +
       `<span class="key"><span class="sw-mark"></span>${COND[state.condition].label} day</span>`;
   }
@@ -531,7 +531,7 @@
     document.getElementById("forest-sub").textContent = `${ZONE_LABEL[zone]} · ${METRICS[metric].label.toLowerCase()} · ${filterLabel}`;
     const clear = CONDITIONS.filter((c) => effects[c.key].estimate !== null && (effects[c.key].ci_low > 0 || effects[c.key].ci_high < 0));
     document.getElementById("forest-foot").textContent = clear.length
-      ? `Intervals that exclude zero here: ${clear.map((c) => `${c.label.toLowerCase()} (${fmtPct(effects[c.key].estimate)})`).join(", ")}. With 7 conditions tested, expect the odd one by chance; rain alone never clears zero for trips across the full period. Click a row to select it.`
+      ? `Intervals that exclude zero here: ${clear.map((c) => `${c.label.toLowerCase()} (${fmtPct(effects[c.key].estimate)})`).join(", ")}. With 7 conditions tested, expect the odd one to clear zero by chance. Click a row to select it.`
       : "Every interval spans zero in this view. Click a row to select it.";
 
     renderTimeSeries(days);
@@ -574,7 +574,7 @@
           { name: "Central Park", color: C.cp, e: matchedEffect(days, "cp", c.key, metric) },
         ],
       })));
-    document.getElementById("zones-chart-title").textContent = `${METRICS[metric].label}: Effect by Condition`;
+    document.getElementById("zones-chart-title").textContent = `${METRICS[metric].title}: Effect by Condition`;
     document.getElementById("zones-legend").innerHTML =
       `<span class="key"><span class="sw-dot" style="background:${C.jfk}"></span>JFK</span><span class="key"><span class="sw-dot" style="background:${C.cp}"></span>Central Park</span>`;
 

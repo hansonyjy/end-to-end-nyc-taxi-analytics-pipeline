@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" width="1200" height="690" role="img" aria-labelledby="t d">
+<title id="t">Rain barely moves taxi demand at JFK or Central Park</title><desc id="d">Change in trips per day against dry days in the same month and weekday, with 95% intervals. Any rain: JFK +1.0% (−1.0% to +3.2%), Central Park −1.2% (−3.2% to +1.1%), 312 days; Light rain: JFK +1.3% (−1.1% to +3.8%), Central Park −0.2% (−2.7% to +2.5%), 122 days; Moderate rain: JFK +0.8% (−1.8% to +3.5%), Central Park −0.9% (−3.7% to +2.0%), 82 days; Heavy rain: JFK +1.0% (−2.5% to +4.7%), Central Park −2.5% (−6.7% to +2.4%), 108 days; Snow: JFK −8.4% (−18.8% to +3.5%), Central Park −4.8% (−9.6% to −0.9%), 23 days; Freezing: JFK −3.3% (−12.1% to +5.0%), Central Park −3.3% (−9.7% to +0.7%), 37 days; Hot: JFK +4.3% (−0.3% to +8.8%), Central Park +5.9% (+2.3% to +9.2%), 38 days.</desc>
+<rect width="1200" height="690" rx="18" fill="#f6f5f0"/>
+<text x="48" y="62" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#0b6e4b">Trips per day vs dry days in the same month and weekday · 95% month-cluster bootstrap · 2023 to 2025</text>
+<text x="48" y="104" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="-1" fill="#14261f">Rain barely moves taxi demand</text>
+<circle cx="830" cy="94" r="7" fill="#14261f"/><text x="844" y="99" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#3f4f48">JFK</text>
+<circle cx="910" cy="94" r="7" fill="#b26d00"/><text x="924" y="99" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" fill="#3f4f48">Central Park</text>
+<line x1="348.0" x2="348.0" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="348.0" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">−20%</text>
+<line x1="460.6" x2="460.6" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="460.6" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">−15%</text>
+<line x1="573.1" x2="573.1" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="573.1" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">−10%</text>
+<line x1="685.7" x2="685.7" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="685.7" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">−5%</text>
+<line x1="798.3" x2="798.3" y1="134" y2="602" stroke="#3f4f48" stroke-width="1.6"/>
+<text x="798.3" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">0%</text>
+<line x1="910.9" x2="910.9" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="910.9" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">+5%</text>
+<line x1="1023.4" x2="1023.4" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="1023.4" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">+10%</text>
+<line x1="1136.0" x2="1136.0" y1="134" y2="602" stroke="#dcdcd3" stroke-width="1"/>
+<text x="1136.0" y="628" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#5f6b65">+15%</text>
+<rect x="32" y="142" width="1136" height="62" rx="10" fill="#0f8f62" fill-opacity="0.08"/>
+<text x="48" y="170" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#14261f">Any rain</text>
+<text x="48" y="192" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK +1.0% · CP −1.2% · 312 days</text>
+<line x1="774.9" x2="870.0" y1="165.0" y2="165.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="774.9" x2="774.9" y1="160.0" y2="170.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="870.0" x2="870.0" y1="160.0" y2="170.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="821.7" cy="165.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="725.8" x2="822.5" y1="181.0" y2="181.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="725.8" x2="725.8" y1="176.0" y2="186.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="822.5" x2="822.5" y1="176.0" y2="186.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="772.3" cy="181.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="236" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Light rain</text>
+<text x="48" y="258" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK +1.3% · CP −0.2% · 122 days</text>
+<line x1="773.4" x2="884.9" y1="231.0" y2="231.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="773.4" x2="773.4" y1="226.0" y2="236.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="884.9" x2="884.9" y1="226.0" y2="236.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="826.5" cy="231.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="737.9" x2="853.5" y1="247.0" y2="247.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="737.9" x2="737.9" y1="242.0" y2="252.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="853.5" x2="853.5" y1="242.0" y2="252.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="794.7" cy="247.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="302" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Moderate rain</text>
+<text x="48" y="324" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK +0.8% · CP −0.9% · 82 days</text>
+<line x1="757.2" x2="877.6" y1="297.0" y2="297.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="757.2" x2="757.2" y1="292.0" y2="302.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="877.6" x2="877.6" y1="292.0" y2="302.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="815.6" cy="297.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="714.5" x2="842.4" y1="313.0" y2="313.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="714.5" x2="714.5" y1="308.0" y2="318.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="842.4" x2="842.4" y1="308.0" y2="318.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="778.0" cy="313.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="368" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Heavy rain</text>
+<text x="48" y="390" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK +1.0% · CP −2.5% · 108 days</text>
+<line x1="741.9" x2="904.4" y1="363.0" y2="363.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="741.9" x2="741.9" y1="358.0" y2="368.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="904.4" x2="904.4" y1="358.0" y2="368.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="821.0" cy="363.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="647.4" x2="852.6" y1="379.0" y2="379.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="647.4" x2="647.4" y1="374.0" y2="384.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="852.6" x2="852.6" y1="374.0" y2="384.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="742.6" cy="379.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="48" x2="1152" y1="404" y2="404" stroke="#dcdcd3" stroke-dasharray="4 5"/>
+<text x="48" y="434" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Snow</text>
+<text x="48" y="456" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK −8.4% · CP −4.8% · 23 days</text>
+<line x1="374.6" x2="876.5" y1="429.0" y2="429.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="374.6" x2="374.6" y1="424.0" y2="434.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="876.5" x2="876.5" y1="424.0" y2="434.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="609.6" cy="429.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="582.0" x2="778.6" y1="445.0" y2="445.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="582.0" x2="582.0" y1="440.0" y2="450.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="778.6" x2="778.6" y1="440.0" y2="450.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="689.9" cy="445.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="500" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Freezing</text>
+<text x="48" y="522" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK −3.3% · CP −3.3% · 37 days</text>
+<line x1="526.1" x2="911.0" y1="495.0" y2="495.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="526.1" x2="526.1" y1="490.0" y2="500.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="911.0" x2="911.0" y1="490.0" y2="500.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="724.6" cy="495.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="580.5" x2="813.3" y1="511.0" y2="511.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="580.5" x2="580.5" y1="506.0" y2="516.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="813.3" x2="813.3" y1="506.0" y2="516.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="723.1" cy="511.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="566" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="500" fill="#14261f">Hot</text>
+<text x="48" y="588" font-family="'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" fill="#5f6b65">JFK +4.3% · CP +5.9% · 38 days</text>
+<line x1="792.0" x2="995.6" y1="561.0" y2="561.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="792.0" x2="792.0" y1="556.0" y2="566.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="995.6" x2="995.6" y1="556.0" y2="566.0" stroke="#14261f" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="895.4" cy="561.0" r="6.5" fill="#14261f" stroke="#f6f5f0" stroke-width="2.5"/>
+<line x1="849.2" x2="1004.8" y1="577.0" y2="577.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="849.2" x2="849.2" y1="572.0" y2="582.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="1004.8" x2="1004.8" y1="572.0" y2="582.0" stroke="#b26d00" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="931.2" cy="577.0" r="6.5" fill="#b26d00" stroke="#f6f5f0" stroke-width="2.5"/>
+<text x="48" y="660" font-family="Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#5f6b65">Federal holidays and four TLC data-gap days excluded. Weather: NOAA station USW00094728 (Central Park). Few snow, freezing and hot days, so wide intervals.</text>
+</svg>
