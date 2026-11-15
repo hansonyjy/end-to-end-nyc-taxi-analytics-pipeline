@@ -220,6 +220,11 @@ def build_taxi_daily() -> tuple[pd.DataFrame, dict]:
     daily["date"] = pd.to_datetime(daily["date"])
     daily = daily[(daily.date >= "2023-01-01") & (daily.date <= "2025-12-31")]
     daily["zone"] = daily.location_id.map(ZONES)
+    # Parallel float sums can differ in the last bits between runs; round money and miles to
+    # cents so the committed table is exactly what every later step reads (and reruns match).
+    money = ["fare_sum", "tip_sum", "card_fare_sum", "card_tip_sum", "distance_sum", "total_sum"]
+    daily[money] = daily[money].round(2)
+    daily[["trips", "card_trips"]] = daily[["trips", "card_trips"]].astype(int)
 
     # Data gaps: the TLC files themselves are nearly empty on a few days (all zones, before any
     # filter). Those days say nothing about weather, so they are dropped and listed in results.
@@ -500,19 +505,23 @@ def main() -> None:
     daily["holiday"] = daily.date.isin(hols)
     daily = daily.sort_values(["date", "location_id"]).reset_index(drop=True)
 
+    # Max precipitation across four first-order stations: only to replay the original
+    # max-across-stations bucketing in the dashboard's naive view.
+    maxw = max_across_stations()
+    maxw = maxw[maxw.date.isin(daily.date)]  # same analysis days as everything else
+    daily = daily.merge(maxw[["date", "prcp_max"]].rename(columns={"prcp_max": "prcp_max4_in"}), on="date", how="left")
+
     # ---- per-day table for the dashboard and the tests
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     table = daily[
         [
             "date", "zone", "location_id", "trips", "card_trips", "fare_sum", "tip_sum", "card_fare_sum",
-            "card_tip_sum", "distance_sum", "total_sum", "prcp_in", "snow_in", "tmax_f", "tmin_f", "tavg_f",
+            "card_tip_sum", "distance_sum", "total_sum", "prcp_in", "prcp_max4_in", "snow_in", "tmax_f", "tmin_f", "tavg_f",
             "rain_level", "snow_level", "temp_level", "dow", "holiday",
         ]
     ].copy()
     table["date"] = table.date.dt.strftime("%Y-%m-%d")
     table["holiday"] = table.holiday.astype(int)
-    for c in ["fare_sum", "tip_sum", "card_fare_sum", "card_tip_sum", "distance_sum", "total_sum"]:
-        table[c] = table[c].round(2)
     table.to_csv(OUT_DIR / "daily.csv", index=False)
 
     # ---- effects
@@ -522,8 +531,6 @@ def main() -> None:
         effects[zkey] = {c: {m: matched_effect(s, c, m) for m in METRICS} for c in CONDITIONS}
         regs[zkey] = {m: regression(s, m) for m in METRICS}
 
-    maxw = max_across_stations()
-    maxw = maxw[maxw.date.isin(daily.date)]  # same analysis days as everything else
     one = daily.drop_duplicates("date")
     day_counts = {
         "rain_level": one.rain_level.value_counts().reindex(RAIN_ORDER).astype(int).to_dict(),
