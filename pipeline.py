@@ -1,4 +1,4 @@
-#!/opt/anaconda3/bin/python3
+#!/usr/bin/env python3
 
 import argparse
 import os
@@ -8,7 +8,7 @@ from pathlib import Path
 import luigi
 from dotenv import load_dotenv
 
-from Luigi.pipeline import FLAG_DIR, FullPipeline
+from Luigi.pipeline import FLAG_DIR, FullPipeline, command_override
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 load_dotenv(PROJECT_ROOT / ".env")
@@ -58,15 +58,12 @@ def clear_flags() -> None:
 
 
 def validate_environment() -> None:
-    command_overrides = {
-        "gcloud": PROJECT_ROOT / "tools" / "google-cloud-sdk" / "bin" / "gcloud",
-        "snowsql": Path("/Applications/SnowSQL.app/Contents/MacOS/snowsql"),
-    }
-
     missing_commands = []
     for command in REQUIRED_COMMANDS:
-        override = command_overrides.get(command)
-        if override and override.exists():
+        override = command_override(command)  # optional GCLOUD_BIN / SNOWSQL_BIN
+        if override is not None:
+            if not override.exists():
+                missing_commands.append(f"{command} (override {override} not found)")
             continue
         if not shutil.which(command):
             missing_commands.append(command)

@@ -15,6 +15,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dim-time-output-name")
     parser.add_argument("--dim-weather-output-name")
     parser.add_argument("--dim-location-output-name")
+    parser.add_argument("--weather-station")
     return parser.parse_args()
 
 
@@ -30,6 +31,16 @@ FACT_OUTPUT_NAME = ARGS.fact_output_name or os.getenv("FACT_OUTPUT_NAME", "fact_
 DIM_TIME_OUTPUT_NAME = ARGS.dim_time_output_name or os.getenv("DIM_TIME_OUTPUT_NAME", "dim_time")
 DIM_WEATHER_OUTPUT_NAME = ARGS.dim_weather_output_name or os.getenv("DIM_WEATHER_OUTPUT_NAME", "dim_weather")
 DIM_LOCATION_OUTPUT_NAME = ARGS.dim_location_output_name or os.getenv("DIM_LOCATION_OUTPUT_NAME", "dim_location")
+
+# One weather station for every day (NY City Central Park). Taking the max across every
+# station in a NOAA export turned any shower anywhere in the region into a "heavy rain" day.
+WEATHER_STATION = ARGS.weather_station or os.getenv("WEATHER_STATION", "USW00094728")
+
+# Data-gap days: the raw TLC files are nearly empty on a few dates (2023-09-21 to 2023-09-24).
+# A day is a gap if any hour from 08:00 to 21:59 has fewer than 300 raw records citywide.
+# Same rule as analysis/weather_effect.py.
+GAP_HOURS = list(range(8, 22))
+GAP_MIN_RECORDS = 300
 
 
 def require_env(var_name: str) -> str:
@@ -86,6 +97,7 @@ def standardize_taxi_schema(df: DataFrame) -> DataFrame:
           .withColumn("ratecodeid", F.col("ratecodeid").cast("double"))
           .withColumn("pulocationid", F.col("pulocationid").cast("bigint"))
           .withColumn("dolocationid", F.col("dolocationid").cast("bigint"))
+          .withColumn("payment_type", F.col("payment_type").cast("bigint"))
           .withColumn("cbd_congestion_fee", F.col("cbd_congestion_fee").cast("double"))
     )
 
@@ -108,12 +120,6 @@ def clean_taxi_df(df: DataFrame) -> DataFrame:
         ((F.col("fare_amount") == 0) | (F.col("tip_amount") <= F.col("fare_amount"))) &
         (F.col("pulocationid").isNotNull()) &
         (F.col("dolocationid").isNotNull())
-    )
-
-    # Convert timestamps to date, matching your notebook
-    df = (
-        df.withColumn("tpep_pickup_datetime", F.to_date("tpep_pickup_datetime"))
-          .withColumn("tpep_dropoff_datetime", F.to_date("tpep_dropoff_datetime"))
     )
 
     # Stronger final cleaning step from notebook
@@ -141,17 +147,40 @@ def clean_taxi_df(df: DataFrame) -> DataFrame:
         (F.col("cbd_congestion_fee").isNull() | ((F.col("cbd_congestion_fee") >= 0) & (F.col("cbd_congestion_fee") <= 20)))
     )
 
-    dup_cols = [
-        "tpep_pickup_datetime",
-        "tpep_dropoff_datetime",
-        "trip_distance",
-        "fare_amount",
-        "tip_amount",
-        "total_amount"
-    ]
+    # Duplicates are exact repeated records only (handled by dropDuplicates() above). An
+    # earlier version converted the timestamps to dates first and then dropped duplicates on
+    # (pickup date, dropoff date, distance, fare, tip, total) across every zone. That treated
+    # different trips on the same day with the same fare as one trip and silently removed
+    # about 45% of Central Park pickups and 9% of JFK pickups in 2023 to 2025.
+    df = df.filter(condition)
 
-    df = df.filter(condition).dropDuplicates(dup_cols)
+    # Convert timestamps to dates only after cleaning and de-duplication
+    df = (
+        df.withColumn("tpep_pickup_datetime", F.to_date("tpep_pickup_datetime"))
+          .withColumn("tpep_dropoff_datetime", F.to_date("tpep_dropoff_datetime"))
+    )
     return df
+
+
+def find_data_gap_dates(raw: DataFrame) -> DataFrame:
+    """Dates where the raw feed (all zones, before cleaning) is missing whole daytime hours."""
+    hourly = (
+        raw.withColumn("date", F.to_date("tpep_pickup_datetime"))
+           .withColumn("hour", F.hour("tpep_pickup_datetime"))
+           .groupBy("date", "hour")
+           .count()
+    )
+    all_dates = hourly.select("date").distinct()
+    full_hours = (
+        hourly.filter(F.col("hour").isin(GAP_HOURS) & (F.col("count") >= GAP_MIN_RECORDS))
+              .groupBy("date")
+              .agg(F.countDistinct("hour").alias("full_hours"))
+    )
+    return (
+        all_dates.join(full_hours, on="date", how="left")
+                 .filter(F.coalesce(F.col("full_hours"), F.lit(0)) < len(GAP_HOURS))
+                 .select("date")
+    )
 
 
 def build_taxi_dataset(spark: SparkSession, taxi_input: str) -> DataFrame:
@@ -160,14 +189,20 @@ def build_taxi_dataset(spark: SparkSession, taxi_input: str) -> DataFrame:
     if not files:
         raise FileNotFoundError(f"No parquet files found in taxi input path: {taxi_input}")
 
-    dfs = []
+    dfs, raws = [], []
     for f in files:
-        df = spark.read.parquet(f)
-        df = standardize_taxi_schema(df)
-        df = clean_taxi_df(df)
-        dfs.append(df)
+        df = standardize_taxi_schema(spark.read.parquet(f))
+        raws.append(df.select("tpep_pickup_datetime"))
+        dfs.append(clean_taxi_df(df))
 
     taxi = reduce(lambda a, b: a.unionByName(b, allowMissingColumns=True), dfs)
+
+    gap_dates = find_data_gap_dates(reduce(lambda a, b: a.unionByName(b), raws))
+    taxi = taxi.join(
+        F.broadcast(gap_dates.withColumnRenamed("date", "tpep_pickup_datetime")),
+        on="tpep_pickup_datetime",
+        how="left_anti",
+    )
 
     # In notebook you further narrowed to JFK (132) and Central Park (43)
     taxi = taxi.filter(F.col("pulocationid").isin(132, 43)).dropDuplicates()
@@ -195,17 +230,38 @@ def build_weather_daily(spark: SparkSession, weather_input: str) -> DataFrame:
         .csv(weather_input)
     )
 
-    weather_small = weather.select("date", "PRCP", "SNOW", "TAVG")
+    cols = {c.upper(): c for c in weather.columns}
 
-    # Important fix from your notebook:
-    # weather had multiple stations per date, so aggregate to one row per date first
+    # Keep a single station. A NOAA export usually holds many stations per date, and taking
+    # the max of PRCP across all of them labels a day "heavy rain" if any one gauge saw it.
+    if "STATION" in cols:
+        weather = weather.filter(F.col(cols["STATION"]) == WEATHER_STATION)
+
+    # Central Park publishes TMAX and TMIN but not TAVG for these years, so fall back to the
+    # (TMAX + TMIN) / 2 convention when TAVG is missing.
+    tavg_parts = []
+    if "TAVG" in cols:
+        tavg_parts.append(F.col(cols["TAVG"]).cast("double"))
+    if "TMAX" in cols and "TMIN" in cols:
+        tavg_parts.append((F.col(cols["TMAX"]).cast("double") + F.col(cols["TMIN"]).cast("double")) / 2)
+    if not tavg_parts:
+        raise ValueError("Weather file needs TAVG or both TMAX and TMIN")
+
+    weather_small = weather.select(
+        F.to_date(F.col(cols["DATE"])).alias("date"),
+        F.col(cols["PRCP"]).cast("double").alias("PRCP"),
+        F.col(cols["SNOW"]).cast("double").alias("SNOW"),
+        F.coalesce(*tavg_parts).alias("TAVG"),
+    )
+
+    # One station gives one row per date already; the groupBy guards against repeats.
     weather_daily = (
         weather_small
         .groupBy("date")
         .agg(
-            F.max("PRCP").alias("PRCP"),
-            F.max("SNOW").alias("SNOW"),
-            F.avg("TAVG").alias("TAVG")
+            F.first("PRCP", ignorenulls=True).alias("PRCP"),
+            F.first("SNOW", ignorenulls=True).alias("SNOW"),
+            F.first("TAVG", ignorenulls=True).alias("TAVG")
         )
     )
 
@@ -249,6 +305,10 @@ def build_fact_and_dims(taxi: DataFrame, weather_daily: DataFrame):
         F.when(F.col("fare_amount") > 0, F.col("tip_amount") / F.col("fare_amount"))
     )
 
+    # Tips are only recorded for card payments (cash tips show as 0), so the comparable tip
+    # rate is sum(card tips) / sum(card fares), matching analysis/weather_effect.py.
+    is_card = F.col("payment_type") == 1
+
     fact_taxi_demand = (
         joined.groupBy("date", "location", "rain_level", "snow_level", "temp_level")
         .agg(
@@ -257,7 +317,11 @@ def build_fact_and_dims(taxi: DataFrame, weather_daily: DataFrame):
             F.avg("tip_amount").alias("avg_tip"),
             F.avg("tip_pct").alias("avg_tip_pct"),
             F.avg("total_amount").alias("avg_total"),
-            F.avg("trip_distance").alias("avg_distance")
+            F.avg("trip_distance").alias("avg_distance"),
+            (
+                F.sum(F.when(is_card, F.col("tip_amount")))
+                / F.sum(F.when(is_card, F.col("fare_amount")))
+            ).alias("card_tip_pct")
         )
     )
 
@@ -301,7 +365,8 @@ def build_fact_and_dims(taxi: DataFrame, weather_daily: DataFrame):
             fact_taxi_demand["avg_tip"],
             fact_taxi_demand["avg_tip_pct"],
             fact_taxi_demand["avg_total"],
-            fact_taxi_demand["avg_distance"]
+            fact_taxi_demand["avg_distance"],
+            fact_taxi_demand["card_tip_pct"]
         )
     )
 
